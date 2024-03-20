@@ -121,3 +121,7 @@ impl Engine {
         Ok(())
     }
 }
+
+#[cfg(test)]
+#[path = "engine.test.rs"]
+mod tests;

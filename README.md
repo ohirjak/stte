@@ -22,18 +22,26 @@ However, new client should probably be created only when processing `Deposit` ty
 
 Using type system for checking input file correctness. Checking presence and validity of the `amount` field for deposit/withdrawal transactions programmatically.
 Field `amount` and internally stored amounts use type `Decimal` from crate [rust_decimal](https://crates.io/crates/rust_decimal).
-See create description: "Decimal number implementation written in pure Rust suitable for financial and fixed-precision calculations."
+See crate description: "Decimal number implementation written in pure Rust suitable for financial and fixed-precision calculations."
 
 Error handling with crate [thiserror](https://crates.io/crates/thiserror).
 
-Testing correctness of transaction processing with input and output files in `data` folder.
-Decided to go this way, i.e. not testing programmatically, because of ease of creating tests.
+### Testing
+
+Testing correctness of transaction processing with unit tests.
+
+```sh
+$ cargo test
+```
+
+Testing checking of input csv file validity with invalid input files in `data` folder.
 
 ```sh
 $ NUM=1
-$ cargo run -- data/input${NUM}.csv > target/output${NUM}-gen.csv
-$ diff data/output${NUM}.csv target/output${NUM}-gen.csv
+$ cargo run -- data/input-invalid${NUM}.csv
 ```
+
+Testing more complicated transaction "flows" with `data/input-flow?.csv` / `data/output-flow?.csv` files.
 
 ## Running
 

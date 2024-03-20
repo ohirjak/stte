@@ -4,7 +4,7 @@ use rust_decimal::Decimal;
 use serde::Deserialize;
 use thiserror::Error;
 
-#[derive(Deserialize, PartialEq)]
+#[derive(Debug, Deserialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub(crate) enum TransactionType {
     Deposit,
@@ -40,7 +40,7 @@ impl Transaction {
     }
 }
 
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 pub(crate) enum DisputeState {
     /// Initial state / set on resolve
     None,
@@ -51,6 +51,7 @@ pub(crate) enum DisputeState {
 }
 
 /// Structure for storing transaction for potential disputes.
+#[derive(Debug, PartialEq)]
 pub(crate) struct StoredTransaction {
     pub(crate) tx_type: TransactionType,
     pub(crate) amount: Amount,
@@ -70,7 +71,7 @@ impl StoredTransaction {
 }
 
 /// Client == Account, as stated in requirements: "The client has a single asset account."
-#[derive(Default)]
+#[derive(Debug, Default, PartialEq)]
 pub(crate) struct Client {
     pub(crate) available: Amount,
     pub(crate) held: Amount,
